@@ -1,0 +1,25 @@
+{
+  "name": "react-ui",
+  "version": "0.0.1",
+  "description": "React UI Components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavkout/reactUI.git"
+  },
+  "keywords": [
+    "UI",
+    "react",
+    "css",
+    "post.css"
+  ],
+  "author": "Koutoglou <pkoutoglou@gmail.com> (http://www.pavdroid.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pavkout/reactUI/issues"
+  },
+  "homepage": "https://github.com/pavkout/reactUI#readme"
+}
