@@ -8,7 +8,7 @@ module.exports = {
   app: 'example/app',
 
   // Provider
-  themeProvider: 'src/provider/themeProvider',
+  themeProvider: 'src/providers/themeProvider',
   themedComponent: 'src/containers/themedComponent'
 
 };
