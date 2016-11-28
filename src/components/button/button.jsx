@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import theme from 'theme';
+import ThemedComponent from 'themedComponent';
 
 class Button extends Component {
   render() {
@@ -8,4 +8,4 @@ class Button extends Component {
   }
 }
 
-export default theme(Button);
+export default ThemedComponent(Button);

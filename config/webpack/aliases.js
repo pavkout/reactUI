@@ -9,6 +9,6 @@ module.exports = {
 
   // Provider
   themeProvider: 'src/provider/themeProvider',
-  theme: 'src/containers/theme'
-  
+  themedComponent: 'src/containers/themedComponent'
+
 };

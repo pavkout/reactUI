@@ -1,16 +1,18 @@
-import React, { Component, PropTypes, Children } from 'react'
+import { Component, PropTypes, Children } from 'react'
 
 export default class ThemeProvider extends Component {
   static propTypes = {
-    theme: PropTypes.object.isRequired,
+    children: PropTypes.element.isRequired,
+    theme: PropTypes.object.isRequired
   }
+
+  static defaultProps = {
+    theme: {}
+  }
+
   // you must specify what you’re adding to the context
   static childContextTypes = {
     theme: PropTypes.object.isRequired,
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   getChildContext() {
@@ -22,7 +24,3 @@ export default class ThemeProvider extends Component {
     return Children.only(this.props.children)
   }
 }
-
-ThemeProvider.propTypes = {
-  theme: PropTypes.object.isRequired
-};
