@@ -1,0 +1,1 @@
+export ThemedComponenet from './themedComponenet';
