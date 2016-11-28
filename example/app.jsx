@@ -3,6 +3,6 @@ import Button from 'button';
 
 export default class App extends Component {
   render() {
-    return (<Button/>);
+    return (<Button text="Click me"/>);
   }
 };
