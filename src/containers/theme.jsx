@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-const theme = (ComponentToWrap) => {
+export default function theme(ComponentToWrap) {
   return class ThemeComponent extends Component {
     // let’s define what’s needed from the `context`
     static contextTypes = {
@@ -16,4 +16,3 @@ const theme = (ComponentToWrap) => {
     }
   }
 }
-export default theme;
