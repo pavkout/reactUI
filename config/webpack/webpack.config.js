@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var path = require('path');
 var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
+var rucksack = require('rucksack-css');
 var aliases = require('./aliases');
 
 var isDebug = _.includes(process.argv, '--production') || _.includes(process.argv, '-p') ? false : true;
@@ -52,7 +52,9 @@ module.exports = {
     }
   ]
   },
-  postcss: function () {
-    return [autoprefixer];
-  }
+  postcss: [
+    rucksack({
+      autoprefixer: true
+    })
+  ]
 };
