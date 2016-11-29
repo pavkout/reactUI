@@ -7,6 +7,10 @@
   flex-direction: column;
 }
 
+.ui-button {
+  font-size: responsive;
+}
 .ui-button:focus {
   outline: none !important;
+  font-size: responsive;
 }
