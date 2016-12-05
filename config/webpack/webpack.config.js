@@ -1,8 +1,9 @@
 var _ = require('lodash');
 var path = require('path');
 var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
+var rucksack = require('rucksack-css');
 var aliases = require('./aliases');
+var postcss = require('postcss');
 
 var isDebug = _.includes(process.argv, '--production') || _.includes(process.argv, '-p') ? false : true;
 
@@ -52,7 +53,15 @@ module.exports = {
     }
   ]
   },
-  postcss: function () {
-    return [autoprefixer];
-  }
+  // postcss([ rucksack({ autoprefixer: true }) ])
+  // .process(css, { from: 'src/style.css', to: 'style.css' })
+  // .then(function (result) {
+  //     fs.writeFileSync('style.css', result.css);
+  //     if ( result.map ) fs.writeFileSync('style.css.map', result.map);
+  // });
+  postcss: [
+    rucksack({
+      autoprefixer: true
+    })
+  ]
 };
