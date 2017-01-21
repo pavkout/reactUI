@@ -1,38 +1,37 @@
 import React, {Component, PropTypes} from 'react';
 import ThemedComponent from 'themedComponent';
-import './button.post.css';
+import styled from 'styled-components';
 
-class Button extends Component {
-  static propTypes = {
-    text: PropTypes.string
+const Button = styled.button`
+  /* Adapt the colors based on primary prop */
+  background: ${props => props.theme === 'light' ? '#fff' : '#337ab7'};
+  color: ${props => props.theme === 'light' ? '#333' : '#fff'};
+
+  line-height: 1.5;
+
+  /*padding for all sizes*/
+  ${props => props.size === 'xsmall' && 'padding: 1px 5px;'
+    || props.size === 'small' && 'padding: 5px 10px;'
+    || props.size === 'medium' && 'padding: 6px 12px'
+    || props.size === 'large' && 'padding: 10px 16px'
+    || props.size === 'xlarge' && 'padding: 14px 20px'
   }
 
-  static defaultProps = {
-   text: ''
+  /*border-radius for all sizes*/
+  ${props => props.size === 'xsmall' && 'border-radius: 3px'
+    || props.size === 'small' && 'border-radius: 3px;'
+    || props.size === 'medium' && 'border-radius: 4px'
+    || props.size === 'large' && 'border-radius: 6px'
+    || props.size === 'xlarge' && 'border-radius: 8px'
   }
 
-  constructor(props) {
-   super(props)
-   this.state = { isLight: false };
+  /*font-size for all sizes*/
+  ${props => props.size === 'xsmall' && 'font-size: 12px'
+    || props.size === 'small' && 'font-size: 12px;'
+    || props.size === 'medium' && 'font-size: 14px'
+    || props.size === 'large' && 'font-size: 18px'
+    || props.size === 'xlarge' && 'font-size: 18px'
   }
-
-  handleClick() {
-    this.setState({ isLight: !this.state.isLight });
-  }
-
-  render() {
-    const { theme } = this.props;
-    let style = theme.dark;
-    if (this.state.isLight) {
-      style = theme.light;
-    }
-
-    return (
-      <div className="ui-button-container">
-        <button className= "btn ui-button" onClick={this.handleClick.bind(this)} style={style}>{this.props.text}</button>
-      </div>
-    );
-  }
-}
+`;
 
 export default ThemedComponent(Button);

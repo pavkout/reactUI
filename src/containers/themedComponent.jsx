@@ -4,15 +4,16 @@ export default function themedComponent(ThemedComponent) {
   return class ThemeComponent extends Component {
     // let’s define what’s needed from the `context`
     static contextTypes = {
-      theme: PropTypes.object.isRequired,
+      theme: PropTypes.oneOf(['light', 'dark', 'default']),
+      size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge'])
     }
 
     render() {
-      const { theme } = this.context;
+      const { theme, size } = this.context;
       // what we do is basically rendering `ComponentToWrap`
       // with an added `theme` prop, like a hook
       return (
-        <ThemedComponent {...this.props} theme={theme} />
+        <ThemedComponent {...this.props} theme={theme} size={size} />
       )
     }
   }
