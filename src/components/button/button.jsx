@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styled, { css } from 'styled-components'
 import FontAwesome from 'react-fontawesome';
-
 import ThemedComponent from 'themedComponent';
 
 const xsmall = css`
@@ -51,6 +50,22 @@ const iconPosition = css`
   }
 `;
 
+const darkColors = css`
+  ${props => (props.color === 'default' && props.theme === 'dark') && 'background: #fff; color: black; border-color: #ccc'};
+  ${props => (props.color === 'grey' && props.theme === 'dark') && 'background: #e8e8e8; color: black; border-color: #e8e8e8'};
+  ${props => (props.color === 'red' && props.theme === 'dark') && 'background: #FF4081; color: black; border-color: #FF4081'};
+  ${props => (props.color === 'black' && props.theme === 'dark') && 'background: #111; color: whitesmoke; border-color: #111'};
+  ${props => (props.color === 'blue' && props.theme === 'dark') && 'background: #00BCD4; color: black; border-color: #00BCD4'};
+`;
+
+const lightColors = css`
+  ${props => (props.color === 'default' && props.theme === 'light') && 'background: #fff; color: black; border-color: #ccc'};
+  ${props => (props.color === 'grey' && props.theme === 'light') && 'background: #e8e8e8; color: black; border-color: #e8e8e8'};
+  ${props => (props.color === 'red' && props.theme === 'light') && 'background: #FF4081; color: whitesmoke; border-color: #FF4081'};
+  ${props => (props.color === 'black' && props.theme === 'light') && 'background: #111; color: whitesmoke; border-color: #111'};
+  ${props => (props.color === 'blue' && props.theme === 'light') && 'background: #00BCD4; color: whitesmoke; border-color: #00BCD4'};
+`;
+
 const DefaultButton = styled.button`
   /* Adapt the colors based on primary prop */
   display: flex;
@@ -63,12 +78,13 @@ const DefaultButton = styled.button`
   /* Full width */
   width: ${props => props.fullWidth ? '100%' : 'auto'};
 
-  border-color: ${props => props.theme === 'light' ? '#fff' : '#0A7AB9'};
-  background: ${props => props.theme === 'light' ? '#fff' : '#0A7AB9'};
-  color: ${props => props.theme === 'light' ? '#333' : 'whitesmoke'};
-
   /* Disabled style */
   ${ disabledStyle }
+
+  /* Theme */
+  ${ darkColors }
+  ${ lightColors }
+
 
   /* Sizes style */
   ${ xsmall }
@@ -106,14 +122,14 @@ const LinkButton = styled(DefaultButton)`
   border-bottom-style: solid;
   border-radius: 0;
   background: transparent;
-  color: #337ab7;
+  color: ${props => props.theme === 'light' ? '#337ab7' : 'whitesmoke'};
 `;
 
 const TextButton = styled(DefaultButton)`
   border: none;
   border-radius: 0;
   background: transparent;
-  color: #337ab7;
+  color: ${props => props.theme === 'light' ? '#337ab7' : 'whitesmoke'};
 `;
 
 const Icon = styled(FontAwesome)`
@@ -173,7 +189,7 @@ class Button extends Component {
     /**
      * Choose if the button will be displayed as a link or as a button
      */
-    color: PropTypes.oneOf(['default', 'grey', 'red', 'black', 'blue', 'popup']),
+    color: PropTypes.oneOf(['default', 'grey', 'red', 'black', 'blue']),
     /**
      * Choose the icon name
      */
