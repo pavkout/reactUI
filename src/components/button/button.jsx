@@ -53,7 +53,7 @@ const iconPosition = css`
 
 const DefaultButton = styled.button`
   /* Adapt the colors based on primary prop */
-  display: ${props => props.hidden ? 'none' : 'flex' };
+  display: flex;
   justify-content: center;
   align-items: center;
   line-height: 1.5;
@@ -221,13 +221,33 @@ class Button extends Component {
   }
 
   render() {
+    // Don't display the button if hidden is true
+    if (this.props.hidden) {
+      return null;
+    }
+
     switch (this.props.display) {
       case 'text':
-        return <TextButton {...this.props}>{this.renderIcon()}{this.props.children}</TextButton>;
+        return (
+          <TextButton {...this.props}>
+            {this.renderIcon()}
+            {this.props.children}
+          </TextButton>
+        );
       case 'link':
-        return <LinkButton {...this.props}>{this.renderIcon()}{this.props.children}</LinkButton>;
+        return (
+          <LinkButton {...this.props}>
+            {this.renderIcon()}
+            {this.props.children}
+          </LinkButton>
+        );
       default:
-        return <DefaultButton {...this.props}>{this.renderIcon()}{this.props.children}</DefaultButton>;
+        return (
+          <DefaultButton {...this.props}>
+            {this.renderIcon()}
+            {this.props.children}
+          </DefaultButton>
+        );
     }
   }
 }
