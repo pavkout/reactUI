@@ -1,9 +1,8 @@
 var _ = require('lodash');
 var path = require('path');
 var webpack = require('webpack');
-var rucksack = require('rucksack-css');
+var autoprefixer = require('autoprefixer');
 var aliases = require('./aliases');
-var postcss = require('postcss');
 
 var isDebug = _.includes(process.argv, '--production') || _.includes(process.argv, '-p') ? false : true;
 
@@ -17,15 +16,17 @@ if (process.env.NODE_ENV === 'development') {
 
 module.exports = {
   context: path.resolve(__dirname, '../../'),
-  // Switch loaders to debug mode (not sure how this helps)
   debug: isDebug,
 
   // Better set this for development, because it creates source maps
   devtool: isDebug ? '#inline-source-map' : false,
-  entry: 'index.js',
+  entry: {
+    index: 'index.js',
+    example: 'example/index.js'
+  },
   output: {
     path: path.resolve(__dirname, '../../dist'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/dist/'
   },
   resolve: {
@@ -35,7 +36,8 @@ module.exports = {
   },
   devServer: {
     inline: true,
-    port: 8080
+    port: 8080,
+    'content-base': '../../example'
   },
   module: {
     loaders: [{
@@ -43,7 +45,7 @@ module.exports = {
       loader: loaders,
       exclude: /node_modules/,
       query: {
-        presets: ["es2015", "react", "stage-1"]
+        presets: ["es2015", "react", "stage-0"]
       },
       babelrc: false
     },
@@ -53,15 +55,7 @@ module.exports = {
     }
   ]
   },
-  // postcss([ rucksack({ autoprefixer: true }) ])
-  // .process(css, { from: 'src/style.css', to: 'style.css' })
-  // .then(function (result) {
-  //     fs.writeFileSync('style.css', result.css);
-  //     if ( result.map ) fs.writeFileSync('style.css.map', result.map);
-  // });
-  postcss: [
-    rucksack({
-      autoprefixer: true
-    })
-  ]
+  postcss: function () {
+    return [autoprefixer];
+  }
 };
