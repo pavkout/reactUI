@@ -1,70 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components';
 import FontAwesome from 'react-fontawesome';
 import ThemedComponent from 'themedComponent';
-
-const xsmall = css`
-  ${props => props.size === 'xsmall' && 'padding: 1px 5px; font-size: 12px'};
-  ${props => (props.size === 'xsmall' && props.withRoundedCorners) && 'border-radius: 3px'};
-`;
-
-const small = css`
-  ${props => props.size === 'small' && 'padding: 5px 10px; font-size: 12px'};
-  ${props => (props.size === 'small' && props.withRoundedCorners) && 'border-radius: 3px'};
-`;
-
-const medium = css`
-  ${props => props.size === 'medium' && 'padding: 6px 12px; font-size: 14px'};
-  ${props => (props.size === 'medium' && props.withRoundedCorners) && 'border-radius: 4px'};
-`;
-
-const large = css`
-  ${props => props.size === 'large' && 'padding: 10px 16px; font-size: 18px'};
-  ${props => (props.size === 'large' && props.withRoundedCorners) && 'border-radius: 6px'};
-`;
-
-const xlarge = css`
-  ${props => props.size === 'xlarge' && 'padding: 14px 20px; font-size: 18px'};
-  ${props => (props.size === 'xlarge' && props.withRoundedCorners) && 'border-radius: 8px'};
-`;
-
-const disabledStyle = css`
-  /* Disabled style */
-  ${props => props.disabled && 'border-color: #d3d6db; color: black; opacity: 0.5; pointer-events: none; cursor: not-allowed !important'};
-`;
-
-const textPosition = css`
-  /* Text Position*/
-  ${props => props.textPosition === 'center' && 'justify-content: center;'
-    || props.textPosition === 'left' && 'justify-content: flex-start;'
-    || props.textPosition === 'right' && 'justify-content: flex-end;'
-  }
-`;
-
-const iconPosition = css`
-  /* Icon Position*/
-  ${props => props.iconPosition === 'before' && 'flex-direction: row;'
-    || props.iconPosition === 'after' && 'flex-direction: row-reverse;'
-    || props.iconPosition === 'up' && 'flex-direction: column;'
-    || props.iconPosition === 'down' && 'flex-direction: column-reverse;'
-  }
-`;
-
-const darkColors = css`
-  ${props => (props.color === 'default' && props.theme === 'dark') && 'background: #fff; color: black; border-color: #ccc'};
-  ${props => (props.color === 'grey' && props.theme === 'dark') && 'background: #e8e8e8; color: black; border-color: #e8e8e8'};
-  ${props => (props.color === 'red' && props.theme === 'dark') && 'background: #FF4081; color: black; border-color: #FF4081'};
-  ${props => (props.color === 'black' && props.theme === 'dark') && 'background: #111; color: whitesmoke; border-color: #111'};
-  ${props => (props.color === 'blue' && props.theme === 'dark') && 'background: #00BCD4; color: black; border-color: #00BCD4'};
-`;
-
-const lightColors = css`
-  ${props => (props.color === 'default' && props.theme === 'light') && 'background: #fff; color: black; border-color: #ccc'};
-  ${props => (props.color === 'grey' && props.theme === 'light') && 'background: #e8e8e8; color: black; border-color: #e8e8e8'};
-  ${props => (props.color === 'red' && props.theme === 'light') && 'background: #FF4081; color: whitesmoke; border-color: #FF4081'};
-  ${props => (props.color === 'black' && props.theme === 'light') && 'background: #111; color: whitesmoke; border-color: #111'};
-  ${props => (props.color === 'blue' && props.theme === 'light') && 'background: #00BCD4; color: whitesmoke; border-color: #00BCD4'};
-`;
 
 const DefaultButton = styled.button`
   /* Adapt the colors based on primary prop */
@@ -73,31 +10,30 @@ const DefaultButton = styled.button`
   align-items: center;
   line-height: 1.5;
   border-style: solid;
-  margin: 10px;
+  user-select: none;
 
   /* Full width */
   width: ${props => props.fullWidth ? '100%' : 'auto'};
 
-  /* Disabled style */
-  ${ disabledStyle }
+  opacity: ${props => props.disabled ? '0.5' : '1'};
+  pointer-events: ${props => props.disabled ? 'none' : null};
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
 
-  /* Theme */
-  ${ darkColors }
-  ${ lightColors }
-
+  /* Colors style*/
+  background: ${props => props.theme.button.colors[props.color].background};
+  color: ${props => props.theme.button.colors[props.color].color};
+  border-color: ${props => props.theme.button.colors[props.color].borderColor};
 
   /* Sizes style */
-  ${ xsmall }
-  ${ small }
-  ${ medium }
-  ${ large }
-  ${ xlarge }
+  padding: ${props => props.theme.button[props.size].padding};
+  font-size: ${props => props.theme.button[props.size].fontSize};
+  border-radius: ${props => props.withRoundedCorners ? props.theme.button[props.size].borderRadius : null};
 
   /* Icon Position style */
-  ${ iconPosition}
+  flex-direction: ${props => props.theme.button.iconPosition[props.iconPosition].flexDirection};
 
   /* Text Position style */
-  ${ textPosition }
+  justify-content: ${props => props.theme.button.textPosition[props.textPosition].justifyContent};
 
   &:hover {
     opacity: 0.8;
@@ -122,14 +58,14 @@ const LinkButton = styled(DefaultButton)`
   border-bottom-style: solid;
   border-radius: 0;
   background: transparent;
-  color: ${props => props.theme === 'light' ? '#337ab7' : 'whitesmoke'};
+  color: ${props => props.theme.button.colors[props.color].color};
 `;
 
 const TextButton = styled(DefaultButton)`
   border: none;
   border-radius: 0;
   background: transparent;
-  color: ${props => props.theme === 'light' ? '#337ab7' : 'whitesmoke'};
+  color: ${props => props.theme.button.colors[props.color].color};
 `;
 
 const Icon = styled(FontAwesome)`
@@ -219,7 +155,7 @@ class Button extends Component {
     iconLibrary: 'fa',
     iconPosition: 'before',
     color: 'default',
-    theme: 'dark',
+    theme: {},
     size: 'medium',
     withRoundedCorners: false
   }
