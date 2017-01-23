@@ -12,5 +12,7 @@ module.exports = {
   themedComponent: 'src/containers/themedComponent',
 
   // Media
-  media: 'src/utilities/mediaUtils'
+  media: 'src/utilities/mediaUtils',
+
+  themes: 'src/utilities/themes'
 };
