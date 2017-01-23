@@ -12,7 +12,7 @@ export default class ThemeProvider extends Component {
     /**
      * The name of theme we want, each component can have a default value
      */
-    theme: PropTypes.oneOf(['light', 'dark', 'default']),
+    theme: PropTypes.object,
     /**
      * Set the size medium or large, each component can have a default value
      */
@@ -24,13 +24,13 @@ export default class ThemeProvider extends Component {
   }
 
   static defaultProps = {
-    theme: 'light',
+    theme: {},
     size: 'medium'
   }
 
   // you must specify what you’re adding to the context
   static childContextTypes = {
-    theme: PropTypes.string.isRequired,
+    theme: PropTypes.object.isRequired,
     size: PropTypes.string.isRequired
   }
 

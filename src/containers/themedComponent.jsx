@@ -4,7 +4,7 @@ export default function themedComponent(ThemedComponent) {
   return class ThemeComponent extends Component {
     // let’s define what’s needed from the `context`
     static contextTypes = {
-      theme: PropTypes.oneOf(['light', 'dark', 'default']),
+      theme: PropTypes.object,
       size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge'])
     }
 
